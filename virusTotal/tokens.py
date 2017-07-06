@@ -4,7 +4,7 @@
 __author__ = 'Rohan Khale'
 try:    
     import sys
-    import datetime
+#    import datetime
 except ImportError as error:
     print (error)
     raise (error)
@@ -26,12 +26,15 @@ def getRoot():
     return None
 
 BASEDIR = "vtsamples"
-KEY="your Virus Total private api Key"
+KEY="<------your Virus Total private api Key--->"
+
 VT_BASEURI = "https://www.virustotal.com/vtapi/v2/"
 VT_SEARCHURI = VT_BASEURI + "file/search"
 VT_DOWNLOADURI = VT_BASEURI + "file/download"
-QUERY_DT_START = datetime.datetime.today().strftime('%Y-%m-%d')
-QUERY_DT_END = (datetime.datetime.today()+ datetime.timedelta(days=1)).strftime('%Y-%m-%d')
+VT_PUBLICSEARCHURI = "https://www.virustotal.com/intelligence/search/programmatic/"
+VT_PUBLICDOWNLOADURI="https://www.virustotal.com/intelligence/download/?hash=%s&apikey=%s"
+#QUERY_DT_START = datetime.datetime.today().strftime('%Y-%m-%d')
+#QUERY_DT_END = (datetime.datetime.today()+ datetime.timedelta(days=1)).strftime('%Y-%m-%d')
 LOG_CONFIG_FILE = "logging.conf"
 THREAD_POOL=10
 if getRoot():
