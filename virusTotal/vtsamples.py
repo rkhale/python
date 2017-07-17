@@ -21,9 +21,14 @@ except ImportError as error:
 logging.config.fileConfig(tokens.LOG_CONFIG_FILE)
 logger = logging.getLogger(__name__)
 
+logger.debug("Current System path is : %s",sys.path)
+logger.info("Current Python version is %s.%s.%s"%sys.version_info[:3])
+
 virusCount = 0
 DWNLDDIR=None
 num_files=0
+
+#clean_files=True
 
 def buildQuery(OPTIONS,ARGUMENTS):
     """
@@ -38,6 +43,7 @@ def buildQuery(OPTIONS,ARGUMENTS):
             logger.debug("Arguments Passed : %s",ARGUMENTS)
             global virusCount 
             virusCount = int(OPTIONS.numfiles)
+			clean_files= OPTIONS.cleanfiles
             logger.debug ("Max number of files to download (virusCount) :-- %s",virusCount)
             query = OPTIONS.query
             #TODO ... add a regular expression here to check if the fs given is in the format expected.
@@ -95,7 +101,7 @@ def deleteDirectory (DIR_TO_BE_DELETED,RECURSIVE=False):
         else:
             return True
     except Exception as error:
-        print(error)
+        logger.error("Exception",exc_info=True)
         raise error
         
         
@@ -128,6 +134,7 @@ def createLocalDest(ON_DISK_PATH):
 usage = 'usage: %prog [options] <virustotal query>\nTry %prog -h / --help for more information'
 parser = optparse.OptionParser(usage=usage, description='Allows you to download the top-n files returned by a given VirusTotal Intelligence search. Example: python %prog -n 10 type:"peexe" positives:5+')
 parser.add_option('-n', '--numfiles', dest='numfiles', default=100,help='Max umber of files to download. Default is 100.')
+parser.add_option('-c', '--cleanfiles', dest='cleanfiles', default=True,help='Download only Clean Files.')
 parser.add_option('-q', '--query', dest='query', default="",help='Virus Total intellegient Query that is needed to be executed.')
 (options, args) = parser.parse_args()
 
@@ -137,34 +144,64 @@ else:
     try :
         virusCount = int(options.numfiles)
     except Exception as error:
-        logger.error("%s is not an integer. Please specify an integer value for --numfiles or leave it blank for a default value of 100",options.numfiles)
+        logger.error("%s is not an integer. Please specify an integer value for --numfiles or leave it blank for a default value of 100",options.numfiles)                
         sys.exit(-1)
+    
     query = buildQuery(options, args)
+    
+    """
+	if clean_files:
+        query = 'type:peexe size:2mb- positives:0+ fs:2017-07-01+ fs:2017-07-14- not tag:corrupt'
+        #query = 'type:peexe size:2mb- positives:0+ positives:7- fs:2017-07-01+ fs:2017-07-14- not tag:corrupt'
+        #query = 'type:peexe size:2mb- positives:0+ fs:2017-07-01+ fs:2017-07-14- not tag:corrupt and (not cylance:infected or cylance:infected or not mcafee:infected or mcafee:infected not microsoft:infected or microsoft:infected not symantec:infected or symantec:infected not bitdefender:infected or bitdefender:infected not mcafee_gw_edition:infected or mcafee_gw_edition:infected)'
+    else:
+        query = 'type:peexe size:2mb- positives:10+ positives:11- fs:yesterday+ fs:today- not tag:corrupt'
+    """
     logger.info("Max files to download is %s",virusCount)
     logger.info("Query is :-- %s",query)    
     next_page=None
     try:
         logger.debug("Creating object for class virustotal")
         vt=VIRUSTOTAL(query,virusCount)
-        logger.info("Searching Virustotal with Query %s",query)
+        logger.info("Searching Virustotal with Query %s",query)        
         
+                
         next_page,file_hashs = vt.file_search_IntelAPI()
-        #next_page,file_hashs = vt.file_search_privateAPI()
+        #next_page,file_hashs = vt.file_search_privateAPI(page=next_page)
         
-        file_hash_to_dwnld = []
-        file_hash_to_dwnld.extend(file_hashs)
+        total_file_hash = []
+        total_file_hash.extend(file_hashs)
         while next_page:            
             
             next_page,file_hashs = vt.file_search_IntelAPI(page=next_page)
             #next_page,file_hashs = vt.file_search_privateAPI(page=next_page)
-            
+                        
             if file_hashs :
-                file_hash_to_dwnld.extend(file_hashs)
-        if file_hash_to_dwnld:
-            logger.info("Found %s file hashs with the query %s",len(file_hash_to_dwnld),query)
-            logger.debug("File Hash's are %s",file_hash_to_dwnld)
-            DWNLDDIR = vt.BASELOCALDIR + "/" + time.strftime('%Y%m%dT%H%M%S')        
+                total_file_hash.extend(file_hashs)        
+        
+        if total_file_hash:
+            logger.info("Found %s File Hashs with the query %s",len(total_file_hash),query)
+            logger.debug("File Hash's are %s",total_file_hash)
+            
+            #__DEBUG__
+            if clean_files:
+                file_name = time.strftime('%Y%m%dT%H%M%S') + "_IntelAPI.txt"
+            else:
+                file_name = time.strftime('%Y%m%dT%H%M%S') + "_PrivateAPI.txt"
+                
+            file_name =  "C:/Python_Projects/git/virusTotal/" + file_name
+            file_object = open(file_name,"w")
+            file_object.write(str(total_file_hash))
+            file_object.close()
+            #__END__
+            
+            if clean_files:
+                DWNLDDIR = vt.BASELOCALDIR + "/" + time.strftime('%Y%m%dT%H%M%S') + "_cleanfiles"
+            else:
+                DWNLDDIR = vt.BASELOCALDIR + "/" + time.strftime('%Y%m%dT%H%M%S')        
+            
             logger.debug("Current download folder is %s",DWNLDDIR)
+            
             if not os.path.isdir(DWNLDDIR):
                 if createLocalDest(DWNLDDIR):
                     logger.info("%s successfully created",DWNLDDIR)
@@ -177,13 +214,35 @@ else:
                 else:
                     logger.error("Found %s . Unable to clear contents from %s.",DWNLDDIR,DWNLDDIR)
                     sys.exit(-1)
+            
+            if clean_files:
+                logger.info("Filter the file Hash's since we wish to download only Clean Files.")
+                file_hash_to_download = vt.getscanReport_PrivateAPI(total_file_hash)
+                
+                logger.info("Found %s File hash's that can be downloaded.",len(file_hash_to_download))
+                logger.debug("File hash's are :",file_hash_to_download)
+                total_file_hash = []
+                total_file_hash.extend(file_hash_to_download)
+                file_hash_to_download=[]
+            
             logger.info("Downloading the Virus Files to %s",DWNLDDIR)
             hash_Iteratable = []
+            
+            #__DEBUG__
+            if clean_files:
+                file_name = time.strftime('%Y%m%dT%H%M%S') + "_IntelAPI_CLEAN.txt"
+            else:
+                file_name = time.strftime('%Y%m%dT%H%M%S') + "_PrivateAPI_CLEAN.txt"                
+            file_name =  "C:/Python_Projects/git/virusTotal/" + file_name
+            file_object = open(file_name,"w")
+            file_object.write(str(total_file_hash))
+            file_object.close()
+            #__END__
             
             logger.info("Preventing downloads ... exit now")
             sys.exit(0)
             
-            for file_hash in file_hash_to_dwnld:
+            for file_hash in total_file_hash:
                 hash_Iteratable.append((file_hash,DWNLDDIR))
             logger.debug("Creating a Threadpool of %s Threads for faster download.",vt.THREADCNT)
             pool = ThreadPool(vt.THREADCNT)
@@ -194,15 +253,14 @@ else:
             pool.close()
             pool.join()        
             num_files = len ([f for f in os.listdir (DWNLDDIR) if os.path.isfile(os.path.join(DWNLDDIR,f))])
-            logger.info("Downloaded %s files to %s",num_files,DWNLDDIR)
-            logger.info("All files downloaded to %s",DWNLDDIR)
+            logger.info("Downloaded %s files to %s",num_files,DWNLDDIR)            
         else:
-            logger.error("Blank File Hash.")
+            logger.error("Query did not return any file Hash's. Exiting now.")
             sys.exit(-1)
     except Exception as err:
         logger.error("Exception %s",err)
+        logger.error("Exception",exc_info=True)        
         sys.exit(1)
     
 #byconventions
 sys.exit(0)
-    
