@@ -31,6 +31,7 @@ class VIRUSTOTAL():
                 self.logger.error("Query cannot be blank")
                 sys.exit(1)        
             self.query=QUERY            
+            
             # Get all the necessary variables from tokens.
             self.api_key = tokens.KEY
             
@@ -70,9 +71,14 @@ class VIRUSTOTAL():
             self.logger.error("Exception",exc_info=True)
             raise (error)
     
+	
     def downloadFile_privateAPI(self,FILEHASH,LocalDEST):
         """
-            This function will download the file with hash = FILEHASH from self.downloadURI to LocalDEST
+            Downloads a file from VirusTotal's store given one of its hashes. This call can be used in conjuction with the file searching call in order to download samples that match a given set of criteria.
+			Parameters
+			apikey	Your API key.
+			hash	The md5/sha1/sha256 hash of the file you want to download.
+					If the file is not found in the store you will receive an HTTP 404 response, you will be returned the requested binary content otherwise. Under special circumstances you may receive some other HTTP error response, this denotes a transient issue with the store, when this happens you should retry the download.
         """
         self.logger.debug("Inside function %s",sys._getframe().f_code.co_name)        
         FILEHASH = FILEHASH.strip()
@@ -103,7 +109,7 @@ class VIRUSTOTAL():
                     else:
                         self.logger.error("Error downloading file with Hash %s",FILEHASH)
                         if response.status_code == 403:                            
-                            self.logger.error("You tried to perform calls to functions for which you do not have access to.\n%s\n%s",response.status_code,response.reason)
+                            self.logger.error("You tried to perform a call to which you do not have access to.\n%s\n%s",response.status_code,response.reason)
                             return False
                         elif response.status_code == 404:                            
                             self.logger.error ("File with Hash %s not found.\n%s\n%s",FILEHASH ,response.status_code,response.reason)
@@ -173,53 +179,67 @@ class VIRUSTOTAL():
         
     def file_search_privateAPI (self,page=None):
         """
-            This will return an array of hashes which match the self.query that was sent while creating the class object
-            EXAMPLE:
-            search_options = 'type:peexe size:2mb- positives:10+ positives:11- fs:2017-01-12+ fs:2017-01-13- not tag:corrupt'
-            This will download only 300 .. we need to use the offset parameter to find out if there is indeed an offset & use it.                        
+            In addition to retrieving all information on a particular file, VirusTotal allows you to perform what we call "advanced reverse searches". 
+            Reverse searches take you from a file property to a list of files that match that property. 
+            For example, this functionality enables you to retrieve all those files marked by at least one antivirus vendor as Zbot, or all those files that have a size under 90KB 
+            and are detected by at least 10 antivirus solutions, or all those PDF files that have an invalid XREF section, etc.
+            You may use either GET or POST with this request. If your using GET you must keep the total URL length under 1024 characters.
+            This API is equivalent to VirusTotal Intelligence advanced searches. 
+            A very wide variety of search modifiers are available, including: file size, file type, first submission date to VirusTotal, 
+            last submission date to VirusTotal, number of positives, dynamic behavioural properties, binary content, submission file name, and a very long etcetera. 
+            Please note that you must be logged in with a valid VirusTotal Community user account in order to be able to view the full list of search modifiers.
+            All of the API responses are JSON objects, if no files matched your query this JSON will have a response_code property equal to 0, 
+            if there was some sort of error with your query this code will be set to -1, if your query succeded and files were found it will have a value of 1 and a list of SHA256 hashes matching the queried properties will be embedded in the object.                        
+        Parameters
+            apikey    Your API key.
+            query     A search modifier compliant file search query.
+            offset    The offset value returned by a previously issued identical query, allows you to paginate over the results. If not specified the first 300 matching files sorted according to last submission date to VirusTotal in a descending fashion will be returned
         """        
         self.logger.debug("Inside function %s",sys._getframe().f_code.co_name)
-        i_current_Attempt=0        
-        headers = {"Accept-Encoding": "gzip, deflate","User-Agent" : "gzip,  My Python requests library example client or username"}        
         if self.files_found >= self.maxFile:
             self.logger.debug("Max Files already found")
-            return (None,None)              
+            return (None,None)
+        i_current_Attempt=0        
+        headers = {"Accept-Encoding": "gzip, deflate","User-Agent" : "gzip,  Python requests library"}
         params = dict(apikey=self.api_key, query=self.query,offset=page)
         if page:
             self.logger.debug("Length of Params is : %s", len(self.api_key)+ len(self.query)+ len(page))
         else:
             self.logger.debug("Length of Params is : %s", len(self.api_key)+ len(self.query))
         myhashes = []
-        while i_current_Attempt < self.maxtry:
+        while i_current_Attempt < 2: # If there is any problem try one more time. ... if nothing comes out of it .. then we give up
             try:            
-                self.logger.info("Sending Query to : %s with Params : %s" , self.searchURI ,params)
+                self.logger.info("Sending Query to : %s" , self.searchURI)
+                self.logger.debug("Data : %s",params)
+                self.logger.debug("Offset : %s",page)
                 response = requests.post(self.searchURI, data=params, headers=headers, timeout=self.timeout)
                 i_current_Attempt=i_current_Attempt+1
             except requests.RequestException as e:
+                self.logger.error("Exception",e)
                 self.logger.error("Request exception",exc_info=True)
-                raise e
-                    
-            if response.status_code == 200 and json.loads(response.text)["response_code"] == 1:
-                i_current_Attempt=0
-                self.logger.info("Found %s files for the Search Criteria : %s." ,len(json.loads(response.content.decode("utf-8"))["hashes"]),self.query)
-                page = None        
+                return (None,None)
+            except Exception as err:                
+                self.logger.error("Exception",exc_info=True)
+                return (None,None)
+            page = None
+            if response.status_code == 200 and json.loads(response.text)["response_code"] == 1 and len(json.loads(response.content.decode("utf-8"))["hashes"]):
+                i_current_Attempt=0                
+                self.logger.info("Found %s files for the Search Criteria : " ,len(json.loads(response.content.decode("utf-8"))["hashes"]))                        
                 if self.files_found + len(json.loads(response.content.decode("utf-8"))["hashes"]) > self.maxFile:                
-                    self.logger.info("The number of already found + files returned by query is %s > than the max number of files that are expected %s. Selecting only the top %s Files from the Query",self.files_found + len(json.loads(response.content.decode("utf-8"))["hashes"]),self.maxFile,self.maxFile-self.files_found)                
+                    self.logger.info("The number of already found files + files returned by query is %s > than the max number of files that are expected %s. Selecting only the top %s Files from the Query",self.files_found + len(json.loads(response.content.decode("utf-8"))["hashes"]),self.maxFile,self.maxFile-self.files_found)                
                     myhashes = json.loads(response.content.decode("utf-8"))["hashes"][:self.maxFile-self.files_found]                
                 else:
                     myhashes = json.loads(response.content.decode("utf-8"))["hashes"]            
                     if "offset" in response.content.decode("utf-8"):            
-                        page = json.loads(response.content.decode("utf-8"))["offset"]                                          
-                
+                        page = json.loads(response.content.decode("utf-8"))["offset"]
                 self.files_found = self.files_found+ len(myhashes)      
                 self.logger.info("Total number of files found till now is %s",self.files_found)
-                self.logger.debug("The Files found by the Query are : %s",myhashes)            
-                self.logger.debug("Found offset. Length of offset : %s",len(page))
+                self.logger.debug("The Files found by the current Query are : %s",myhashes)                
                 break
             else:
                 self.logger.debug ("Response Status Code : %s",response.status_code)                            
-                self.logger.debug("Response Reason : %s", response.reason)          
-                self.logger.debug ("Response Text %s", response.text)  
+                self.logger.debug ("Response Reason : %s", response.reason)          
+                self.logger.debug ("Response Text : %s", response.text)  
                 self.logger.debug("Trying again [%s] Try",i_current_Attempt)
                 time.sleep(10)
         return (page,myhashes)
@@ -237,7 +257,7 @@ class VIRUSTOTAL():
             self.logger.debug("Max Number of files found. No more searching")
             return (None,None)        
         i_currentAttempt=0        
-        headers = {"Accept-Encoding": "gzip, deflate","User-Agent" : "gzip,  My Python requests library example client or username"}
+        headers = {"Accept-Encoding": "gzip, deflate","User-Agent" : "gzip,  Python requests library"}
         params = dict(apikey=self.api_key, query=self.query,page=page)
         if page:
             self.logger.debug("Length of Params is : %s", len(self.api_key)+ len(self.query)+ len(page))
@@ -246,29 +266,32 @@ class VIRUSTOTAL():
         myhashes = []
         while i_currentAttempt < self.maxtry:            
             try:            
-                self.logger.info("Sending Query to : %s with Params : %s" , self.searchURI ,params)
+                self.logger.info("Sending Query to : %s" , self.searchURI)
+                self.logger.debug("Data : %s",params)
+                self.logger.debug("Page : %s",page)
                 response = requests.post(self.intelsearchURI, params=params, headers=headers, timeout=self.timeout)
                 i_currentAttempt = i_currentAttempt + 1                            
             except requests.RequestException as e:
+                self.logger.error("Exception",e)
                 self.logger.error("Request exception",exc_info=True)
-                raise e        
-            
+                return (None,None)
+            except Exception as err:
+                self.logger.error("Exception",exc_info=True)
+                return (None,None)
+            page = None
             if response.status_code == 200 and json.loads(response.text)["result"] == 1 and len(json.loads(response.content.decode("utf-8"))["hashes"]) > 0 :
                 i_currentAttempt=0
-                self.logger.info("Found %s files for the Search Criteria : %s." ,len(json.loads(response.content.decode("utf-8"))["hashes"]),self.query)
-                page = None        
+                self.logger.info("Found %s files for the Search Criteria." ,len(json.loads(response.content.decode("utf-8"))["hashes"]))                        
                 if self.files_found + len(json.loads(response.content.decode("utf-8"))["hashes"]) > self.maxFile:                
                     self.logger.info("The number of already found + files returned by query is %s > than the max number of files that are expected %s. Selecting only the top %s Files from the Query",self.files_found + len(json.loads(response.content.decode("utf-8"))["hashes"]),self.maxFile,self.maxFile-self.files_found)                
                     myhashes = json.loads(response.content.decode("utf-8"))["hashes"][:self.maxFile-self.files_found]                
                 else:
                     myhashes = json.loads(response.content.decode("utf-8"))["hashes"]            
                     if "next_page" in response.content.decode("utf-8"):            
-                        page = json.loads(response.content.decode("utf-8"))["next_page"]                                          
-                
+                        page = json.loads(response.content.decode("utf-8"))["next_page"]
                 self.files_found = self.files_found+ len(myhashes)      
                 self.logger.info("Total number of files found till now is %s",self.files_found)
-                self.logger.debug("The Files found by the Query are : %s",myhashes)
-                self.logger.debug("Found offset. Length of offset : %s",len(page))
+                self.logger.debug("The Files found by the Query are : %s",myhashes)                
                 break                
             else:
                 self.logger.debug ("Response Status Code : %s",response.status_code)                            
@@ -276,7 +299,6 @@ class VIRUSTOTAL():
                 self.logger.debug ("Response Text %s", response.text)  
                 self.logger.debug("Trying again [%s] Try",i_currentAttempt)
                 time.sleep(10)
-                        
         return (page,myhashes)            
     
     
@@ -298,12 +320,12 @@ class VIRUSTOTAL():
         """
         self.logger.debug("Inside function %s",sys._getframe().f_code.co_name)
         self.logger.debug("RESOURCE passed : %s",RESOURCE)
-        a_hash=[] # This is an array of hash's that will be retuned.
+        a_hash=[] # This is an array of hash's that will be returned.
         if len(RESOURCE)== 0:
             self.logger.error("RESOURCE is Blank. No report to get.")
             return None
         else:
-            aa_hash=[]
+            aa_hash=[] # This is an array of array (the inner array contains hashs).
             if len(RESOURCE)> 25:                
                 self.logger.info("Count of Hash's is greater than 25. Splitting it into chunks of 25")
                 for i in range (0,len(RESOURCE),25):
@@ -312,31 +334,31 @@ class VIRUSTOTAL():
                 aa_hash.append(RESOURCE)
             headers = {"Accept-Encoding": "gzip, deflate","User-Agent" : "gzip,  My Python requests library example client or username"}
             for lHash in aa_hash:                                
-                self.logger.info("Trying to retrieve the report with resources : %s",lHash)                
-                myresource = ",".join(lHash)            
-                self.logger.debug("Converting list to csv so it can be used in params : %s",myresource)
-                params = dict(apikey=self.api_key, resource=myresource)
-                self.logger.debug("Sending Params : %s",params)
+                self.logger.info("Trying to retrieve the report with resources : %s",lHash)
+                self.logger.debug("Converting list to csv so it can be used in params.")                
+                myresource = ",".join(lHash)
+                params = dict(apikey=self.api_key, resource=myresource)                
                 self.logger.info("Retrieving files report from %s",self.vtfileReport)
-                try:
-                    response = requests.get(self.vtfileReport,params=params, headers=headers)                    
+                self.logger.debug("Sending Params : %s",params)
+                try:                                        
+                    response = requests.post(self.vtfileReport, data=params, headers=headers, timeout=self.timeout)                                                                                            
+                    if response.status_code == 200:
+                        json_response = response.json()
+                        self.logger.debug("Found Report : %s",json_response)                        
+                        for scan in json_response:
+                            # Evaluate if multithreading here will help / hurt us .. if
+                            f_hash=self.__filterFile(scan) #Call private function __filterFile to get only the files that we want.
+                            if f_hash:
+                                a_hash.append(f_hash)
+                    else:
+                        self.logger.debug ("Response Status Code : %s",response.status_code)                            
+                        self.logger.debug("Response Reason : %s", response.reason)          
+                        self.logger.debug ("Response Text %s", response.text)
                 except requests.RequestException as e:
                     self.logger.error("Exception : %s",e)
                     self.logger.error("Request exception",exc_info=True)
                 except Exception as err:
-                    self.logger.error("Exception :%s",err)
-                    raise err                                    
-                if response.status_code == 200:
-                    json_response = response.json()
-                    self.logger.debug("Found Report : %s",json_response)                                                            
-                    for scan in json_response:
-                        # Evaluate if multithreading here will help / hurt us .. How much time does it save.
-                        f_hash=self.__filterFile(scan)
-                        if f_hash:
-                            a_hash.append(f_hash)
-                else:
-                    self.logger.error ("Response not 200. Error Code : %s : %s", response.status_code,response.reason)            
-                    raise Exception ("Response not 200.")
+                    self.logger.error("Exceptionxception",exc_info=True)
             return a_hash
         return None
     
@@ -358,16 +380,14 @@ class VIRUSTOTAL():
                         to_add=True
                         self.logger.info("Check scan details for File Hash %s : ",DICT["resource"] )
                         for k , v in value.items():
-                            self.logger.debug("Anti-Virus Name : %s",k)
-                            self.logger.debug("Scan details are : %s",v)
+                            self.logger.debug("%s : %s",k,v)                            
                             if k not in self.ignored_vendors and v["detected"] is True: 
-                                self.logger.debug("This file cannot be used since %s has convicted the file",k)
+                                self.logger.debug("This file cannot be used since %s has convicted this file.",k)
                                 to_add=False
                                 break
                         if to_add:
                             self.logger.info("%s has passed our filter criteria.",DICT["resource"])
                             return DICT["resource"]
-        except Exception as err:
-            self.logger.error("Exception :%s",err)
-            raise err
+        except Exception as err:            
+            self.logger.error("Exception :%s",err,exc_info=True)            
         return None
