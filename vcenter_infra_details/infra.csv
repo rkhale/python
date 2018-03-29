@@ -1,0 +1,185 @@
+OS Type,Operating System,VM Name,Architecture,Power State,Virtualization Host
+Linux,Red Hat Enterprise Linux 6 (64-bit),Rohan_khale_RHEL_6.4_x86_64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2012 (64-bit),Rohan_Khale_W2K12- SQL2K8r2_SEP_SVR,64,poweredOff,10.218.18.113
+Linux,Oracle Linux 4/5/6/7 (64-bit),Rohan_Khale_OEL6u5,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 6 (64-bit),Rohan_Khale_RHEL_6.6_x86_64,64,poweredOff,10.218.18.113
+Linux,CentOS 4/5/6/7 (64-bit),Rohan_Khale_CentOS_7.0-x86_64,64,poweredOff,10.218.18.113
+Linux,Ubuntu Linux (32-bit),Personal Build Machine,32,poweredOff,10.211.32.205
+Linux,Oracle Linux 4/5/6 (32-bit),Rohan_Khale_Ubuntu_1204_x86_desktop,32,poweredOff,10.218.18.113
+Linux,Ubuntu Linux (32-bit),Rohan_Khale_Ubunutu_1410_x86_desktop,32,poweredOff,10.218.18.113
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_khale_SLED_12_x86_64,64,poweredOff,10.218.18.113
+Linux,Ubuntu Linux (64-bit),Rohan_Khale_Ubuntu_1204_x64_desktop,64,poweredOff,10.218.18.113
+Linux,CentOS 4/5/6/7 (64-bit),ESX_Bastion,64,poweredOff,10.218.18.113
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_Khale_SLES_11SP3_x86_64,64,poweredOff,10.218.18.113
+Linux,CentOS 4/5/6/7 (64-bit),CentOS5-U9-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),CentOS6-U3,32,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 R2 (64-bit),DEV-W2K8-SQL,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS7-U3-64,64,poweredOn,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED12-SP1-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS5-U8-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES12-SP1-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS5-U11-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS6-U3-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),CentOS5-U9,32,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 R2 (64-bit),SAP-DEV-W2k8-SQL,64,poweredOn,10.211.32.208
+Linux,CentOS 4/5/6 (32-bit),CentOS5-U8,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-x64-Agent4,64,poweredOff,10.211.32.208
+Linux,Red Hat Enterprise Linux 5 (64-bit),CentOS5-U10-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows 7 (64-bit),WIN7-ENT-SP1-x64-Agent1,64,poweredOff,10.211.32.208
+Windows,Microsoft Windows 7 (64-bit),WIN7-ENT-SP1-x64-Agent2,64,poweredOff,10.211.32.208
+Windows,Microsoft Windows 7 (64-bit),WIN7-ENT-SP1-x64-Agent3,64,poweredOff,10.211.32.208
+Linux,CentOS 4/5/6 (32-bit),CentOS5-U10,32,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),CentOS5-U11,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U4,64,poweredOff,10.218.18.113
+Linux,Debian GNU/Linux 5 (32-bit),Debian-8,32,poweredOff,10.211.32.205
+Linux,Debian GNU/Linux 5 (32-bit),Debian-7,32,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 (64-bit),ROHAN KHALE Windows 2008 Standard SP1 x64,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL6-U2,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (32-bit),DEV-CENTOS6,32,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL6-U3,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu-12.04-desktop-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2012 (64-bit),Rohan_Khale_W2K12_x64_STD_SQL_2008_R2_SP3-SEP_SVR,64,poweredOff,10.218.18.113
+Linux,Other Linux (64-bit),Fedora-17-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLED11-SP2,32,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLED11-SP3,32,poweredOn,10.211.32.205
+Linux,Other Linux (64-bit),OracleLinux-R5-U9-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLED11-SP4,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-12.04-desktop,32,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),Fedora-20-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),OracleLinux-R5-U10-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_Khale_SLES12U1-x64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2008 R2 (64-bit),W2K8-Console,64,poweredOn,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-16.04-desktop,32,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),Automation_Master,32,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U2-64-IPV6,64,poweredOff,10.211.35.185
+Linux,CentOS 4/5/6/7 (64-bit),CentOS-Bastion,64,poweredOff,10.218.18.113
+Linux,Other Linux (64-bit),OracleLinux-R5-U8-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu14-x64-IPV6,64,poweredOff,10.211.35.185
+Linux,Ubuntu Linux (64-bit),Ubuntu-12.04-server-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows 8 (32-bit),en_windows_8_x86_Professional_dvd_915417,32,poweredOff,10.218.18.113
+Linux,Debian GNU/Linux 5 (64-bit),DEB-8-64-IPv6,64,poweredOff,10.211.35.185
+Linux,Ubuntu Linux (64-bit),Ubuntu-14.04-desktop-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED12-SP2-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U2-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-14.04-desktop,32,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 10 (64-bit),SLES10-SP4-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES12-SP2-64,64,poweredOff,10.211.32.205
+Linux,Debian GNU/Linux 5 (64-bit),Debian-8-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES11-SP3-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_Khale_SLED11SP3_x86_64,64,poweredOff,10.218.18.113
+Linux,CentOS 4/5/6/7 (64-bit),Bastion-CentOS,64,poweredOff,10.211.35.185
+Linux,Ubuntu Linux (64-bit),rk-Ubuntu16-x64,64,poweredOn,10.211.35.185
+Windows,Microsoft Windows Server 2012 (64-bit),W2K12-SQL-2K9R2SP3,64,poweredOn,10.211.35.185
+Linux,Ubuntu Linux (64-bit),Ubuntu16-x64,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U3-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS6-U6-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),rk_RHEL7-U2-64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2008 R2 (64-bit),W2K8 - LU Server,64,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),Rohan_Khale_RHEL_7.0-x64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2012 (64-bit),Rohan_Khale_W2K12_x64_STD_SQL_2008_R2_SP3-DBServer,64,poweredOn,10.218.18.113
+Linux,Other Linux (64-bit),OracleLinux-R6-U2-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL5-U8-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),DevVM_ubuntu-12.04.5-desktop-i386_100GB_13_Aug_2015,32,poweredOff,10.218.18.113
+Linux,Other Linux (64-bit),Fedora-25-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLES11-SP4,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu-17.04-desktop-64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows 7 (32-bit),en_windows_7_ultimate_x86_dvd_x15-65921,32,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2003 (64-bit),W2K3ENTx64SP2-SQL2005-SP4,64,poweredOff,10.211.35.185
+Linux,SUSE Linux Enterprise 11 (32-bit),SLES11-SP1,32,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLES11-SP2,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),Fedora-21-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (32-bit),SLES11-SP3,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Rohan_Khale_Ubuntu_14_x64_Desktop,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U1-64,64,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),CentOS6-U5-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 R2 (64-bit),Bastion-Gateway-W2K8-R2,64,poweredOn,10.211.35.185
+Linux,CentOS 4/5/6/7 (64-bit),Rohan_Khale_CentOS_6.6,64,poweredOff,10.218.18.113
+Linux,Ubuntu Linux (64-bit),Ubuntu-15.10-desktop-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),CentOS7-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),CentOS7-U1-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U3-64-IPv6,64,poweredOn,10.211.35.185
+Linux,Ubuntu Linux (64-bit),Bastion,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL5-U10,32,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED11-SP3-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL5-U11,32,poweredOff,10.211.32.205
+Linux,Oracle Linux 4/5/6/7 (64-bit),OracleLinux-R7-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),DevVM_ubuntu-12.04.5-desktop-i386,32,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL-JP,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 6 (64-bit),rk_rhel6-u7-64,64,poweredOff,10.218.18.113
+Linux,Oracle Linux 4/5/6/7 (64-bit),OracleLinux-R7-U1-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 10 (32-bit),SLES10-SP4,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),Rohan_Khale_RHEL_7.1GA-x86_64,64,poweredOff,10.218.18.113
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED11-SP2-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL6-U6-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),PROXY-Server,64,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL5-U10-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 R2 (64-bit),Win_Server_2008_ENT_R2_x64_SQL_2012_SP3,64,poweredOn,10.218.18.113
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL6-U5-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES11-SP4-64,64,poweredOff,10.211.32.205
+Linux,Other Linux (32-bit),Fedora-20,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL5-U11-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),Rohan_Khale_CentOS4U8-x86_64,64,poweredOff,10.218.18.113
+Linux,Other Linux (32-bit),Fedora-24,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu-12-64-IPv4,64,poweredOff,10.211.35.185
+Linux,Red Hat Enterprise Linux 6 (32-bit),Fedora-21,32,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),KALI-2,64,poweredOff,10.218.18.113
+Linux,Other Linux (32-bit),Fedora-22,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),Rohan_Khale_RHEL7-U4-64,64,poweredOff,10.218.18.113
+Linux,SUSE Linux Enterprise 10 (64-bit),SLED10-SP4-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL6-U2-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu-14.04-server-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (32-bit),RHEL6-U8,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (32-bit),RHEL6-U6,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (32-bit),RHEL6-U7,32,poweredOff,10.211.32.205
+Linux,Oracle Linux 4/5/6/7 (64-bit),OracleLinux-R7-U3-64,64,poweredOn,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL6-U4,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL6-U5,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),OracleLinux-R6-U5-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES11-SP2-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),CentOS6-U6,32,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),Rohan_Khale_CentOS_7U1_x86_64,64,poweredOff,10.218.18.113
+Linux,CentOS 4/5/6 (32-bit),CentOS6-U7,32,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6 (32-bit),CentOS6-U8,32,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),Fedora-24-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-16-32-IPv6,32,poweredOff,10.211.35.185
+Linux,Other Linux (32-bit),CentOS6-U4,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Build-REPO-Ubuntu16-x64,64,poweredOff,10.218.18.113
+Linux,Other Linux (32-bit),CentOS6-U5,32,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-16-x32,32,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL5-U9-64,64,poweredOff,10.211.32.205
+Linux,Debian GNU/Linux 5 (64-bit),Debian-7-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS6-U7-64,64,poweredOff,10.211.32.205
+Linux,Oracle Linux 4/5/6/7 (64-bit),OracleLinux-R6-U4-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_Khale_SLED11SP4-x64,64,poweredOff,10.218.18.113
+Linux,Ubuntu Linux (64-bit),rk-Ubuntu-16-LTS,64,poweredOn,10.218.18.113
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED12-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL6-U4-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL5-U9,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL5-U8,32,poweredOff,10.211.32.205
+Linux,Other Linux (32-bit),Fedora-17,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (32-bit),RHEL5-U7,32,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL6.4-x64-IPV4,64,poweredOff,10.211.35.185
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL6-U7-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),CentOS7-U2-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES12-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL7-U4-64,64,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),Fedora-22-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 10 (32-bit),SLED10-SP4,32,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLED11-SP4-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),rk-Ubuntu-14LTS,64,poweredOff,10.218.18.113
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL5-U7-64,64,poweredOff,10.211.32.205
+Linux,Other Linux (64-bit),CentOS6-U4-64,64,poweredOff,10.211.32.205
+Linux,CentOS 4/5/6/7 (64-bit),CentOS6-U8-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (64-bit),Ubuntu-16.04-desktop-64,64,poweredOff,10.211.32.205
+Linux,Red Hat Enterprise Linux 5 (64-bit),RHEL6-U3-64,64,poweredOff,10.211.32.205
+Windows,Microsoft Windows Server 2008 R2 (64-bit),W2K8-R2-SQL-2012-IPV6,64,poweredOn,10.211.35.185
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES12-64-IPv6,64,poweredOff,10.211.35.185
+Linux,Red Hat Enterprise Linux 6 (64-bit),RHEL6-U8-64,64,poweredOff,10.211.32.205
+Linux,Ubuntu Linux (32-bit),Ubuntu-15.10-desktop,32,poweredOff,10.211.32.205
+Linux,Oracle Linux 4/5/6/7 (64-bit),OracleLinux-R7-U2-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),SLES11-SP1-64,64,poweredOff,10.211.32.205
+Linux,SUSE Linux Enterprise 11 (64-bit),Rohan_Khale_SUSE12-U2-x64,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows Server 2008 (64-bit),Rohan_Khale_W2K8,64,poweredOff,10.218.18.113
+Windows,Microsoft Windows XP Professional (64-bit),Windows XP Professional Edition_x64_SP1_60GB,64,poweredOff,10.218.18.113
+Linux,Oracle Linux 4/5/6/7 (64-bit),OEL-R7-U2-64-IPV6,64,poweredOff,10.211.35.185

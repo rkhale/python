@@ -1,0 +1,9 @@
+{
+	"TEMPLATE":
+	{
+		"IP":"IP Of the VCenter Here",
+		"user_name": "User Name",
+		"password": "Password",
+		"domain" : "Domain"
+	},	
+}
