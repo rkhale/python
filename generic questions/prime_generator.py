@@ -11,7 +11,6 @@ except ImportError as error:
 if os.path.exists(os.path.basename(__file__)+ ".log") and os.path.isfile(os.path.basename(__file__)+ ".log"):
     os.unlink(os.path.basename(__file__)+ ".log")
     
-#logging.config.fileConfig("logging.conf",defaults={'logfilename': os.path.basename(__file__)+ ".log"})
 logging.config.fileConfig(os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))),"resources","logging.conf"),defaults={'logfilename': os.path.basename(__file__)+ ".log"})
 logger = logging.getLogger(__name__)
 
@@ -34,8 +33,12 @@ def prime_generator():
         
 
 if __name__ == "__main__":
-    
+    try:
+        max_num = int(sys.argv[1])    
+    except ValueError:        
+        logger.error("%s is not an Integer but %s. Please provide an integer till which all prime Numbers needs to be printed.",sys.argv[1],type(sys.argv[1]))
+        exit (1)
     for prime in prime_generator():        
-        if prime > 100 :
+        if prime > max_num :
             break
-        print (prime)
+        logger.info(prime)
