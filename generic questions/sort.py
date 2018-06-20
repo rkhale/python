@@ -33,7 +33,24 @@ def sort_While (a_to_be_Sorted):
     time_taken = time.time() - startTime
     logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
     logger.info("Time taken to sort %s length Array with While loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
-    return (a_to_be_Sorted)    
+    return (a_to_be_Sorted)
+
+
+def sort_While_append (a_to_be_Sorted):
+    i = 0
+    j = 0
+    i_len_arry = len(a_to_be_Sorted)
+    startTime = time.time()       
+    while i < i_len_arry and i + j < i_len_arry:
+        if a_to_be_Sorted[i] == 1:
+            j = j + 1
+            a_to_be_Sorted.pop(i)
+            a_to_be_Sorted.append(1)
+        i = i + 1
+    time_taken = time.time() - startTime
+    logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
+    logger.info("Time taken to sort %s length Array with While [append] loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
+    return (a_to_be_Sorted)
 
 
 def sort_For (a_to_be_Sorted):
@@ -82,6 +99,11 @@ if __name__ == "__main__":
         logger.debug("The Array to be sorted :-- %s",a_to_be_Sorted)        
         sort_While(a_to_be_Sorted)        
         
+        a_to_be_Sorted = []
+        a_to_be_Sorted.extend(a_org)
+        logger.debug("The Array to be sorted :-- %s",a_to_be_Sorted)        
+        sort_While_append(a_to_be_Sorted)
+
         a_to_be_Sorted = []
         a_to_be_Sorted.extend(a_org)
         logger.debug("The Array to be sorted :-- %s",a_to_be_Sorted)
