@@ -32,7 +32,8 @@ def sort_While (a_to_be_Sorted):
         i = i + 1
     time_taken = time.time() - startTime
     logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
-    logger.info("Time taken to sort %s length Array with While loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)    
+    logger.info("Time taken to sort %s length Array with While loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
+    return (a_to_be_Sorted)    
 
 
 def sort_For (a_to_be_Sorted):
@@ -44,7 +45,21 @@ def sort_For (a_to_be_Sorted):
     time_taken = time.time() - startTime
     logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
     logger.info("Time taken to sort %s length Array with For loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
+    return (a_to_be_Sorted)
     
+    
+def sort_For_append (a_to_be_Sorted):
+    startTime = time.time()
+    j =  0    
+    for i in range (len(a_to_be_Sorted)):        
+        if a_to_be_Sorted[i] == 1 and i+j < len(a_to_be_Sorted):
+            j = j + 1
+            a_to_be_Sorted.pop(i)
+            a_to_be_Sorted.append(1)                    
+    time_taken = time.time() - startTime
+    logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
+    logger.info("Time taken to sort %s length Array with For [Append] loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
+    return (a_to_be_Sorted)
     
 def sort_default(a_to_be_Sorted):    
     startTime = time.time()
@@ -56,7 +71,7 @@ def sort_default(a_to_be_Sorted):
     time_taken = time.time() - startTime
     logger.debug("Sorted Array :-- %s",a_to_be_Sorted)
     logger.info("Time taken to sort %s length Array with n^2 loop is :-- %s sec.",len(a_to_be_Sorted),time_taken)
-    
+    return (a_to_be_Sorted)
     
 if __name__ == "__main__":    
     try:
@@ -71,6 +86,11 @@ if __name__ == "__main__":
         a_to_be_Sorted.extend(a_org)
         logger.debug("The Array to be sorted :-- %s",a_to_be_Sorted)
         sort_For(a_to_be_Sorted)
+        
+        a_to_be_Sorted = []
+        a_to_be_Sorted.extend(a_org)
+        logger.debug("The Array to be sorted :-- %s",a_to_be_Sorted)
+        sort_For_append(a_to_be_Sorted)
         
         a_to_be_Sorted = []
         a_to_be_Sorted.extend(a_org)
